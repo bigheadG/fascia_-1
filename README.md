@@ -56,22 +56,13 @@ Open the URL provided by GitHub Pages in your web browser.
 
 Your index.html file should load, and it should have access to the cricket.wav file.
 
-
-
 ## Picture: for refrence
 ## Settings -> Pages -> Source -> main -> /(root) -> Save -> wait for a while -> on browser type 'https://greenmoon.github.io/fascia_/'
 ![image](https://github.com/user-attachments/assets/e69f28d0-6876-439f-8af9-fcf475691604)
 
-
-
-
- 
-
 ## Example HTML File
 Here is the content of the index.html file for reference:
 
-html
-Copy code
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +77,7 @@ Copy code
             align-items: center;
             height: 100vh;
             margin: 0;
-            padding-top: 20px; /* Adjust this value to move the content further up or down */
+            padding-top: 20px;
             font-family: 'Consolas', monospace;
         }
         #startButton {
@@ -108,6 +99,14 @@ Copy code
             min-width: 120px;
             display: inline-block;
         }
+        #stepCount {
+            font-size: 100px;
+            color: blue;
+            position: fixed;
+            bottom: 250px;
+            text-align: center;
+            width: 100%;
+        }
         #waitSecValue {
             font-size: 200px;
             color: red;
@@ -119,15 +118,16 @@ Copy code
     </style>
 </head>
 <body>
-    <h1>FASCIA V05</h1>
+    <h1>FASCIA V04 Kevin</h1>
     <div id="status">Self Myofascial Release since 2024.07.16</div>
+    <div id="stepCount"></div>
     <div id="waitSecValue"></div>
     <button id="startButton">CLICK STARTING</button>
     <audio id="cricketSound" src="cricket.wav"></audio>
     <script>
         let loopCount = 0;
         const cricketSound = document.getElementById('cricketSound');
-        cricketSound.volume = 0.25;  // Set volume to 25%
+        //cricketSound.volume = 0.25;  // Set volume to 25%
         let endTime;
         let countdownInterval;
         let timerStartTime;
@@ -169,6 +169,7 @@ Copy code
                 const seconds = parseInt(timer % 60, 10);
                 const currentTime = new Date().toTimeString().split(' ')[0];
                 document.getElementById('waitSecValue').textContent = `${seconds}`;
+                document.getElementById('stepCount').textContent = `${loopCount}`;
 
                 display.innerHTML = `
                     <div class="status-line"><span class="status-label">Step:</span> <span>${loopCount}/60</span></div>
@@ -181,7 +182,7 @@ Copy code
                     if (loopCount < 59) {
                         showAlert();
                     } else {
-                        playCricketSound(5, 1000); // Play cricket sound 5 times, 1 second apart
+                        playCricketSound(60, 1000); // Play cricket sound 60 times, 1 second apart
                         document.getElementById('status').innerHTML = '<div class="status-line"><span class="status-label">Total time out:</span> <span>Alerting Finished</span></div>';
                     }
                 }
@@ -201,7 +202,6 @@ Copy code
         }
 
         document.getElementById('startButton').addEventListener('click', () => {
-            alert('Please set your device volume to 25% for optimal experience.');
             calculateEndTime();
             playCricketSound(1, 1000); // Play cricket sound 1 time, 1 second apart
             setTimeout(() => {
@@ -219,7 +219,10 @@ Copy code
     </script>
 </body>
 </html>
-Notes:
+ 
+# Notes:
 The above code assumes that your HTML and cricket.wav files are in the same directory.
 Make sure the filenames match exactly, including the extension.
-After following these steps, your site should be live on GitHub Pages, and you can access it via the provided URL. This will allow you to test your webpage on any device with an internet connection.
+After following these steps, your site should be live on GitHub Pages, 
+and you can access it via the provided URL. 
+This will allow you to test your webpage on any device with an internet connection.
