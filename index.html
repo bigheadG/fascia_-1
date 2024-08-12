@@ -1,4 +1,42 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <title>ObjFinder V01 (BLE Server)</title>
+</head>
+<body>
+    <h1>BLE Server</h1>
+    <button id="startButton">Start BLE Server</button>
+    <p id="status"></p>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', () => {
+            navigator.bluetooth.requestDevice({
+                filters: [{ name: 'Phone_Name' }],
+                optionalServices: ['battery_service'] // Example service
+            })
+            .then(device => {
+                console.log('Device found:', device);
+                document.getElementById('status').textContent = `Connected to ${device.name}`;
+                return device.gatt.connect();
+            })
+            .then(server => {
+                console.log('Connected to GATT server');
+                // Here, handle incoming data (ID and RSSI) from the client
+                // Implement logic to handle the incoming ID and RSSI
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = `Error: ${error.message}`;
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+<!-- V07
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -157,7 +195,7 @@
     </script>
 </body>
 </html>
-
+-->
 
 <!-- V03
 <!DOCTYPE html>
